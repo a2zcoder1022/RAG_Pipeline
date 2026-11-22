@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { categories, topics } from './data/topics.js'
 import NotFoundPage from './pages/NotFoundPage.jsx'
+import PromptEngineeringPage from './pages/PromptEngineeringPage.jsx'
 import TopicPage from './pages/TopicPage.jsx'
 import './App.css'
 
@@ -81,6 +82,9 @@ function App() {
             <span className="nav-icon">▦</span> Explore topics
             <span className="nav-count">09</span>
           </Link>
+          <Link className={`nav-link ${location.pathname === '/prompt-lab' ? 'active' : ''}`} to="/prompt-lab">
+            <span className="nav-icon">⌘</span> Prompt Lab
+          </Link>
         </nav>
 
         <div className="sidebar-divider" />
@@ -127,9 +131,9 @@ function App() {
         <header className="topbar">
           <div className="breadcrumbs">
             <span>Learning space</span><b>/</b>
-            <strong>{currentTopic?.title ?? 'Overview'}</strong>
+            <strong>{currentTopic?.title ?? (location.pathname === '/prompt-lab' ? 'Prompt Lab' : 'Overview')}</strong>
           </div>
-          <label className="search-box">
+          {location.pathname !== '/prompt-lab' && <label className="search-box">
             <span className="search-icon" aria-hidden="true">⌕</span>
             <input
               aria-label="Search lessons"
@@ -144,7 +148,7 @@ function App() {
               value={query}
             />
             <kbd>⌘ K</kbd>
-          </label>
+          </label>}
           <button className="help-button" aria-label="About this learning space" type="button">?</button>
         </header>
 
@@ -259,6 +263,7 @@ function App() {
             }
           />
           <Route path="/topics/:topicId" element={<TopicPage onViewed={markTopicExplored} />} />
+          <Route path="/prompt-lab" element={<PromptEngineeringPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
