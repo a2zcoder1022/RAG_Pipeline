@@ -2,11 +2,11 @@
   "dataset_name": "synthetic_support_ticket_intents",
   "version": 1,
   "description": "Synthetic support messages for comparing zero-shot and few-shot intent classification. The few-shot examples and evaluation examples are separate.",
-  "task_instruction": "Classify each support message as exactly one of: Billing, Technical Support, or Account Access. Return only the category name.",
+  "task_instruction": "Classify each support message as exactly one of: Billing, IT, or Fraud. Return only the category name.",
   "labels": {
-    "Billing": "Charges, invoices, subscriptions, plans, payments, or refunds.",
-    "Technical Support": "Product errors, bugs, setup problems, crashes, or features that do not work.",
-    "Account Access": "Signing in, passwords, account locks, verification, or multi-factor authentication."
+    "Billing": "Recognized charges, invoices, subscriptions, plans, payments, or refund requests.",
+    "IT": "Software, hardware, network, setup, or account-access problems that prevent a service or feature from working.",
+    "Fraud": "Suspected unauthorized transactions, scams, phishing, identity misuse, or account changes the customer did not make."
   },
   "few_shot_examples": [
     {
@@ -22,22 +22,22 @@
     {
       "id": "fs-003",
       "input": "The desktop app closes every time I try to open a report.",
-      "expected_output": "Technical Support"
+      "expected_output": "IT"
     },
     {
       "id": "fs-004",
       "input": "My files have been stuck syncing since I installed the latest update.",
-      "expected_output": "Technical Support"
+      "expected_output": "IT"
     },
     {
       "id": "fs-005",
-      "input": "I can't sign in because the password reset link says it has expired.",
-      "expected_output": "Account Access"
+      "input": "I see a card purchase from a store I have never used, and I did not make it.",
+      "expected_output": "Fraud"
     },
     {
       "id": "fs-006",
-      "input": "I got a new phone and no longer have access to the authenticator for my account.",
-      "expected_output": "Account Access"
+      "input": "Someone claiming to be support asked for my verification code, and now there is an account change I did not make.",
+      "expected_output": "Fraud"
     }
   ],
   "evaluation_examples": [
@@ -74,62 +74,62 @@
     {
       "id": "eval-007",
       "input": "The export button spins for a while and then gives me a blank file.",
-      "expected_output": "Technical Support"
+      "expected_output": "IT"
     },
     {
       "id": "eval-008",
       "input": "I cannot pair the app with my device even though Bluetooth is enabled.",
-      "expected_output": "Technical Support"
+      "expected_output": "IT"
     },
     {
       "id": "eval-009",
       "input": "The app freezes whenever I open the settings page.",
-      "expected_output": "Technical Support"
+      "expected_output": "IT"
     },
     {
       "id": "eval-010",
       "input": "I followed the setup guide, but the desktop installer stops with error 104.",
-      "expected_output": "Technical Support"
+      "expected_output": "IT"
     },
     {
       "id": "eval-011",
       "input": "Notifications stopped appearing after I updated the mobile app.",
-      "expected_output": "Technical Support"
+      "expected_output": "IT"
     },
     {
       "id": "eval-012",
       "input": "The search results never finish loading, even after restarting the browser.",
-      "expected_output": "Technical Support"
+      "expected_output": "IT"
     },
     {
       "id": "eval-013",
-      "input": "My account is locked after several failed login attempts. How can I unlock it?",
-      "expected_output": "Account Access"
+      "input": "There is a card transaction from a merchant I do not recognize, and I did not authorize it.",
+      "expected_output": "Fraud"
     },
     {
       "id": "eval-014",
-      "input": "The verification code is being sent to an old email address I can no longer use.",
-      "expected_output": "Account Access"
+      "input": "I got a text with a link asking me to confirm my card PIN, and now I see a purchase I did not make.",
+      "expected_output": "Fraud"
     },
     {
       "id": "eval-015",
-      "input": "I changed my password, but the new one is rejected when I try to log in.",
-      "expected_output": "Account Access"
+      "input": "Someone called pretending to be support, asked for my one-time code, and then changed my account email.",
+      "expected_output": "Fraud"
     },
     {
       "id": "eval-016",
-      "input": "I am not receiving the one-time code needed to access my account.",
-      "expected_output": "Account Access"
+      "input": "A wire transfer left my account, but I did not send or approve it.",
+      "expected_output": "Fraud"
     },
     {
       "id": "eval-017",
-      "input": "Single sign-on says I do not have permission to access my workspace.",
-      "expected_output": "Account Access"
+      "input": "My card was added to a mobile wallet on a phone I do not own, and there is a charge I did not make.",
+      "expected_output": "Fraud"
     },
     {
       "id": "eval-018",
-      "input": "I no longer remember which email address I used to create my account.",
-      "expected_output": "Account Access"
+      "input": "My recovery email and mailing address were changed, but I did not make those changes.",
+      "expected_output": "Fraud"
     }
   ]
 }

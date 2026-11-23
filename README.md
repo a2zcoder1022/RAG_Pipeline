@@ -1,16 +1,10 @@
-# LLM Learning Lab
+# LLM Prompt Engineering Lab
 
-This project is a small web app for learning about large language models. It has a React front end, a few Python experiments, and a local Ollama client.
+This project is a small React app for testing prompts with a local Ollama model.
 
 ## Front end
 
-The React app is in `frontend/`. It currently includes:
-
-- A searchable library of short guides about tokens, embeddings, attention, Transformers, prompt engineering, RAG, fine-tuning, inference, and evaluation.
-- A separate page for each topic.
-- A Prompt Lab for trying zero-shot and few-shot prompts, editing examples, previewing the prompt, and comparing the model's answer with an expected answer.
-
-The topic guides and Prompt Lab form use sample content. They do not load a knowledge base or connect to a real dataset.
+The React app is in `frontend/`. It has one page, Prompt Lab, for testing zero-shot and few-shot prompts against support-ticket examples from the JSON dataset. It shows model responses and compares them with expected labels.
 
 ## Prompt engineering
 
@@ -20,15 +14,41 @@ Prompt engineering is writing instructions, context, and examples to guide a mod
 - **One-shot:** Give it one input-and-answer example.
 - **Few-shot:** Give it a small number of examples before the task.
 
-The Prompt Lab uses sample support-ticket categories: Billing, Technical Support, and Account Access. The sample dataset is in `LLM/PromptEngineering/support_ticket_dataset.json`. It keeps few-shot examples separate from evaluation examples so the same test messages can be used to compare both approaches.
+Prompt Lab uses the support-ticket categories Billing, IT, and Fraud. The dataset is in `LLM/PromptEngineering/support_ticket_dataset.json`. Its few-shot examples are separate from the held-out evaluation examples.
 
-## Ollama API connection
+## Back end
 
-The Prompt Lab is set up to send a request to `POST /api/prompt-engineering/run`. During local development, Vite forwards `/api` requests to FastAPI at `http://127.0.0.1:8000`.
+The API is in `API/api.py`. It exposes `GET /hello` and `GET /zero_shot_prompt/ollama`. The prompt endpoint accepts a `prompt` query parameter, sends it to the Ollama client, and returns the generated text as JSON.
 
-The front end sends a JSON body with `mode`, `model`, `instruction`, `input`, `examples`, `temperature`, and `top_p`. Few-shot examples contain `input` and `expected_output`. It expects a JSON response with a string `response` field.
+`LLM/ollama.py` contains the `OllamaClient` wrapper. It connects to the local Ollama service at `http://localhost:11434`, uses `llama3.2` by default, and returns the generated response. The API currently selects `llama3.2`.
 
-The current FastAPI app only has a `/hello` endpoint, so the prompt endpoint still needs to be added on the Python side. No Python files were changed for the Prompt Lab.
+### Install and run Ollama
+
+1. Install Ollama for your operating system from [ollama.com/download](https://ollama.com/download).
+2. Open the Ollama app. In PowerShell, download the model used by the API:
+
+   ```powershell
+   ollama pull llama3.2
+   ```
+
+3. Optionally, try the model in the terminal:
+
+   ```powershell
+   ollama run llama3.2
+   ```
+
+Ollama normally starts its local service when the app is running. If it is not running, start it in a separate terminal with `ollama serve`.
+
+### Run the API
+
+From the project directory, install the Python project dependencies and start FastAPI:
+
+```powershell
+uv sync
+uv run uvicorn API.api:app --reload
+```
+
+Open `http://127.0.0.1:8000/docs` to view and try the API endpoints.
 
 ## Run the front end
 
@@ -40,4 +60,8 @@ npm install
 npm run dev
 ```
 
-Open the local address printed by Vite. To use the Prompt Lab, start the FastAPI server too and add the endpoint described above.
+Open the local address printed by Vite. To run prompts, start the FastAPI server from the project directory:
+
+```powershell
+uv run uvicorn API.api:app --reload
+```
