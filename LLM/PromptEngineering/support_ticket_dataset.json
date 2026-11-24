@@ -43,92 +43,92 @@
   "evaluation_examples": [
     {
       "id": "eval-001",
-      "input": "My card was charged twice for this month's subscription.",
+      "input": "I approved the renewal and recognize the card charge, but the invoice still bills us for 14 seats after we reduced the plan to 9 before renewal. The service itself works; please correct the amount.",
       "expected_output": "Billing"
     },
     {
       "id": "eval-002",
-      "input": "I cancelled before the renewal date but still see a renewal charge.",
+      "input": "Checkout timed out, so I clicked pay again. I did place this order, and my bank now shows one settled charge plus one pending authorization for the same amount. I only need the account balance reconciled.",
       "expected_output": "Billing"
     },
     {
       "id": "eval-003",
-      "input": "The payment page says my payment failed, but the money has left my bank account.",
+      "input": "We changed from monthly to annual halfway through the cycle. The annual plan is active, but the invoice includes the full monthly amount with no credit for the unused days. Can you adjust the statement?",
       "expected_output": "Billing"
     },
     {
       "id": "eval-004",
-      "input": "I was charged after my free trial ended and would like to request a refund.",
+      "input": "Our bank confirms the transfer for invoice 4812 cleared on Tuesday, but your portal still marks it overdue and says access may be suspended. Please apply the payment to the right invoice.",
       "expected_output": "Billing"
     },
     {
       "id": "eval-005",
-      "input": "Where can I download receipts for the last three payments?",
+      "input": "The pretax total matches our quote, but the final invoice uses the tax rate for our previous office location. The billing address in our profile is already correct; we need a corrected invoice.",
       "expected_output": "Billing"
     },
     {
       "id": "eval-006",
-      "input": "The discount was not applied to my latest invoice.",
+      "input": "The confirmation email showed the renewal discount, and I recognize the purchase, but the settled amount is the undiscounted price. I am not disputing the transaction itself; please honor the quoted price.",
       "expected_output": "Billing"
     },
     {
       "id": "eval-007",
-      "input": "The export button spins for a while and then gives me a blank file.",
+      "input": "I can sign in and open the report, and the totals on screen look right. After changing the CSV delimiter, export returns a successful download but the file contains only headers.",
       "expected_output": "IT"
     },
     {
       "id": "eval-008",
-      "input": "I cannot pair the app with my device even though Bluetooth is enabled.",
+      "input": "The desktop client says syncing is complete, yet edits made there never appear in the web dashboard. The same account updates normally from my phone, and I can access every workspace.",
       "expected_output": "IT"
     },
     {
       "id": "eval-009",
-      "input": "The app freezes whenever I open the settings page.",
+      "input": "My password and verification code work, and the subscription amount is correct. The generated invoice dates are one day early whenever I select Pacific time.",
       "expected_output": "IT"
     },
     {
       "id": "eval-010",
-      "input": "I followed the setup guide, but the desktop installer stops with error 104.",
+      "input": "The scheduled report arrives on time and its preview is readable in the browser, but the attached PDF is corrupted in every mail client. Could you investigate the generated file?",
       "expected_output": "IT"
     },
     {
       "id": "eval-011",
-      "input": "Notifications stopped appearing after I updated the mobile app.",
+      "input": "The badge reader appears paired and its driver reports no errors, but it disconnects each time the workstation wakes from sleep. Reconnecting works until the next sleep cycle.",
       "expected_output": "IT"
     },
     {
       "id": "eval-012",
-      "input": "The search results never finish loading, even after restarting the browser.",
+      "input": "The workspace loads and other pages respond normally, but search times out for queries longer than three characters, even after clearing the browser cache.",
       "expected_output": "IT"
     },
     {
       "id": "eval-013",
-      "input": "There is a card transaction from a merchant I do not recognize, and I did not authorize it.",
+      "input": "The renewal amount resembles our usual annual fee, but none of our admins approved a renewal and the merchant name differs from the vendor by one letter. The attached invoice is not ours.",
       "expected_output": "Fraud"
     },
     {
       "id": "eval-014",
-      "input": "I got a text with a link asking me to confirm my card PIN, and now I see a purchase I did not make.",
+      "input": "An email used our supplier's logo and copied the amount from a real invoice, then asked us to verify new bank details. After an employee entered them, a transfer went to an account the supplier says is not theirs.",
       "expected_output": "Fraud"
     },
     {
       "id": "eval-015",
-      "input": "Someone called pretending to be support, asked for my one-time code, and then changed my account email.",
+      "input": "I can still access my account and the card is mine, but an order for a new phone was placed overnight and is going to an address no one in our household recognizes.",
       "expected_output": "Fraud"
     },
     {
       "id": "eval-016",
-      "input": "A wire transfer left my account, but I did not send or approve it.",
+      "input": "A caller knew the last four digits of my card and claimed to be from support. I read them the verification code; shortly afterward, my recovery email and billing address changed without my approval.",
       "expected_output": "Fraud"
     },
     {
       "id": "eval-017",
-      "input": "My card was added to a mobile wallet on a phone I do not own, and there is a charge I did not make.",
+      "input": "I recognize the merchant as one of our regular suppliers, but this charge has no matching purchase order. The employee who normally approves these orders was away, and the supplier cannot find an invoice for it.",
       "expected_output": "Fraud"
     },
     {
       "id": "eval-018",
-      "input": "My recovery email and mailing address were changed, but I did not make those changes.",
+      "input": "I received a password-reset notice while asleep and did not request it. This morning the recovery address had changed and my card was added to a wallet on a device I do not own; I see no purchase yet.",
       "expected_output": "Fraud"
     }
   ]
