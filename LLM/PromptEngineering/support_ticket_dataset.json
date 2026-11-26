@@ -1,14 +1,14 @@
 {
   "dataset_name": "synthetic_support_ticket_intents",
   "version": 1,
-  "description": "Synthetic support messages for comparing zero-shot and few-shot intent classification. The few-shot examples and evaluation examples are separate.",
+  "description": "Synthetic support messages for comparing zero-shot and few-shot intent classification. Generic examples, quality examples, and evaluation examples are kept separate.",
   "task_instruction": "Classify each support message as exactly one of: Billing, IT, or Fraud. Return only the category name.",
   "labels": {
     "Billing": "Recognized charges, invoices, subscriptions, plans, payments, or refund requests.",
     "IT": "Software, hardware, network, setup, or account-access problems that prevent a service or feature from working.",
     "Fraud": "Suspected unauthorized transactions, scams, phishing, identity misuse, or account changes the customer did not make."
   },
-  "few_shot_examples": [
+  "generic_examples": [
     {
       "id": "fs-001",
       "input": "I changed to the monthly plan last week, but I was charged for a full year.",
@@ -37,6 +37,258 @@
     {
       "id": "fs-006",
       "input": "Someone claiming to be support asked for my verification code, and now there is an account change I did not make.",
+      "expected_output": "Fraud"
+    }
+  ],
+  "quality_examples": [
+    {
+      "id": "quality-001",
+      "input": "The renewal was authorized and processed successfully. Our signed quote lists 28 seats at $24 each, but invoice 2026-114 bills 32. The admin audit shows no seats were added; please correct the quantity before payment.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-002",
+      "input": "We removed the analytics add-on in the portal on May 3, and the confirmation says it ends May 31. The core subscription is still active, but the June invoice includes another month of analytics. Please credit that line item.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-003",
+      "input": "Our nonprofit exemption certificate was approved in the billing portal before this cycle. The subscription and pretax amount are correct, but invoice 8452 still adds local sales tax. Please issue a tax-corrected invoice.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-004",
+      "input": "The usage dashboard and exported meter report both show 3.8 million API operations for April. The invoice bills 38 million at the contracted per-operation rate. The charge is from our account; we need the metered quantity reviewed.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-005",
+      "input": "Our bank confirms ACH payment for invoice 90017 settled on Monday. The finance portal applied the payment to invoice 90071 instead, leaving 90017 overdue. Please move the existing credit to the correct invoice.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-006",
+      "input": "The service-tier change to Standard was confirmed effective June 1. June's statement includes both the old Growth tier and the new Standard tier for the same dates. Access is fine; please correct the overlapping subscription charges.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-007",
+      "input": "Our signed renewal quote fixes the support rate at $18 per seat through next March. The renewal invoice uses $22 per seat, while the seat count and service dates match the quote. Please apply the contracted rate.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-008",
+      "input": "The report preview contains all 1,240 project rows, and I have owner access. Exporting the same report as CSV returns a successful download with only the header row. Other reports export normally.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-009",
+      "input": "Employees can authenticate successfully at our identity provider, but after its signing certificate was rotated the app redirects them back to the sign-in screen. Existing sessions work until they expire; no account details were changed.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-010",
+      "input": "Our service account started receiving 401 responses after we rotated its API key. The replacement key passes the provider's validation endpoint, and interactive staff logins still work. The scheduled integration cannot connect.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-011",
+      "input": "The office Wi-Fi stays connected and ordinary web pages load, but the collaboration app's live sessions disconnect every few minutes. The same laptops stay connected when plugged into Ethernet.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-012",
+      "input": "Since the workstation updated to printer driver 5.2, the receipt printer completes jobs but prints unreadable symbols instead of text. The same printer and documents worked with the previous driver.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-013",
+      "input": "A report scheduled for 8:00 a.m. Pacific arrives at 8:00 a.m. UTC instead. The schedule and recipient list are unchanged, and manually running the report produces the correct data.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-014",
+      "input": "Workspace invitations show as created, but none of the recipients receive an email, including addresses on our approved domain. The users remain pending and cannot access the workspace.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-015",
+      "input": "I recognize the coffee chain and the amount is typical, but the card was in my possession at home when a contactless purchase appeared at that chain's kiosk in another city. I did not make or approve it.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-016",
+      "input": "A supplier replied in our real invoice thread with new bank details from a domain differing by one character. We paid the invoice, then the supplier confirmed it had not sent the message and received no funds.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-017",
+      "input": "I followed a text link to verify my account and entered my password and one-time code. Minutes later, I received a sign-in alert from an unfamiliar location and saw that my recovery phone had been replaced.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-018",
+      "input": "An expense approval appears under my name for equipment I never requested. The audit log shows it was submitted during a session from an unfamiliar country, although I was working locally and did not approve it.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-019",
+      "input": "My card is with me and I recognize the bank's merchant name, but I did not authorize three small test charges followed by a much larger digital-wallet authorization. The bank says the wallet token was created today.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-020",
+      "input": "A caller claiming to be our software vendor asked me to install remote-access software and add a new administrator for an urgent license check. I refused, but the audit log now shows an admin account created from an unknown IP.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-021",
+      "input": "Our downgrade from Enterprise to Team was confirmed effective September 1. The September invoice charges for both plans for the full month, although the account changed tiers on the confirmed date. Please correct the overlapping subscription charges.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-022",
+      "input": "We purchased $1,000 in prepaid API credits, and the usage page shows $340 consumed this month. The invoice also bills the same $340 as pay-as-you-go usage instead of drawing it from our credit balance. Please reconcile the statement.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-023",
+      "input": "The payment was authorized and settled by ACH, but the invoice includes a 2.9% card-processing surcharge. Our contract says that fee applies only to card payments. Please remove the incorrect fee from the balance.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-024",
+      "input": "After the latest browser update, the audit table spins indefinitely whenever we filter for records older than 90 days. Recent records load, permissions are unchanged, and the same older records appear in the API export.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-025",
+      "input": "The application works from the office network, but remote staff on the corporate VPN get a connection-reset error before the sign-in page loads. DNS resolves to the expected address, and other internal services work over the VPN.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-026",
+      "input": "Our one-time codes are accepted and the dashboard briefly opens, then redirects to sign-in whenever a user selects a project. This affects multiple browsers and users; no recovery details or account settings have changed.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-027",
+      "input": "I did not request a password reset, but the notification says the link was used. The account audit shows a new authenticator enrolled from an unfamiliar location, and I have not made any purchases.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-028",
+      "input": "A text claiming to be from the parcel carrier linked to a page asking for a small redelivery fee. I entered my card details, then received bank alerts for several online purchases I did not make.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-029",
+      "input": "Our supplier's portal shows a valid order, but someone changed the delivery address to a parcel-forwarding warehouse. The supplier says the change came from a newly created contact they do not recognize.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-030",
+      "input": "A caller claiming to be from my bank asked me to approve a push notification to stop a transfer. I declined, but the account now shows a transfer I did not authorize to a new recipient.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-031",
+      "input": "I approved the annual renewal, but the invoice lists 120 seats while the admin page and signed order both show 102. No seats were added during the renewal. Please correct the billed quantity.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-032",
+      "input": "Support confirmed a refund for the cancelled reporting add-on and issued a credit memo last week. The credit is visible in the portal, but the original amount is still included in this month's balance.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-033",
+      "input": "Our contract gives us a 15% discount for all 30 licenses. This month's invoice applies the discount to only 20 licenses, even though all 30 remain active. Please review the calculation.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-034",
+      "input": "The card processor shows our payment for invoice 7741 was captured, but the billing portal still marks that same invoice as unpaid. The amount and merchant are correct; please reconcile the payment.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-035",
+      "input": "We upgraded our plan on the date shown in the confirmation. The new tier is active, but the statement charges the full old and new monthly rates for the same billing period.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-036",
+      "input": "The usage report counts API calls that returned failed-request errors, and those calls appear in the billable total. Our agreement excludes failed requests from metered usage. Could you recalculate this month's charge?",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-037",
+      "input": "We received two invoices from your billing system for the same service period, each with the same plan and amount. Both appear in our account under different invoice IDs; please confirm which one is valid.",
+      "expected_output": "Billing"
+    },
+    {
+      "id": "quality-038",
+      "input": "Since yesterday's browser update, uploading any attachment stalls at 99% and never completes. The files are within the size limit, and the same uploads work from another computer.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-039",
+      "input": "My password is accepted, but the multi-factor prompt never reaches my registered device. I can still receive other notifications there, and I have not changed my account settings.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-040",
+      "input": "Our identity provider shows a successful sign-in and the user has the correct workspace role, but opening the project page returns an access error for everyone in that role.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-041",
+      "input": "The desktop application closes during startup immediately after installing version 4.8. The web version still opens normally, and reinstalling the desktop app did not resolve the crash.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-042",
+      "input": "Task assignment notifications arrive several hours late even though the notification settings are enabled. The assignments appear immediately in the workspace, and this affects multiple team members.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-043",
+      "input": "The operating system detects our barcode scanner and shows it as connected, but scanning into the inventory form produces no characters. Typing into the same field works.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-044",
+      "input": "The corporate VPN connects successfully, but the internal dashboard reports that its server cannot be found. Other internal sites load, and the dashboard works when I am in the office.",
+      "expected_output": "IT"
+    },
+    {
+      "id": "quality-045",
+      "input": "I entered my login code on a page linked from a text message that claimed my account would be suspended. I then received an unfamiliar sign-in alert and did not initiate that session.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-046",
+      "input": "A message in our supplier's existing email thread requested payment to a replacement bank account. The supplier confirmed by phone that it did not send the message and that its banking details have not changed.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-047",
+      "input": "My debit card has stayed in my possession, but I see an online purchase from a retailer I do not recognize. I did not place the order, and the merchant cannot find an account under my email.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-048",
+      "input": "A rule forwarding all incoming messages to an unfamiliar external address appeared in my account overnight. I did not create it, and the security page lists a sign-in from a location where I have never been.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-049",
+      "input": "A QR code on a payment request from a familiar contractor directs our bank transfer to a personal account. The contractor says it did not create the request and its approved account is unchanged.",
+      "expected_output": "Fraud"
+    },
+    {
+      "id": "quality-050",
+      "input": "My reimbursement profile now shows a deposit account I do not recognize, and an expense claim was submitted under my name while I was away. I did not make either change.",
       "expected_output": "Fraud"
     }
   ],

@@ -20,3 +20,4 @@ def create_few_shot_prompt(instruction: str, examples: list[OneShotExample], pro
         )
     few_shot_prompt += f"Prompt:\n{prompt}"
     return few_shot_prompt
+
