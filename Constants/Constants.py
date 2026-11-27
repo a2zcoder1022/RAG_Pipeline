@@ -1,1 +1,2 @@
 JSON_PATH = "C:\\Users\\aaron\\OneDrive\\Documents\\Programming\\RAG\\RAG_Pipeline\\LLM\\PromptEngineering\\support_ticket_dataset.json"
+MODEL_LIST = ["llama3.2", "qwen3:8b", "gemma3:4b", "mistral:7b", "phi4"]

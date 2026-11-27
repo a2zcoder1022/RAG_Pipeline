@@ -20,7 +20,7 @@ class OllamaClient:
         self.client = Client(host=URL)
         self.model_name = model_name
 
-    def generate(self, prompt: str, max_tokens: int = 100, temp: float = 0.7, top_p: float = 0.9) -> str:
+    def generate(self, prompt: str, max_tokens: int = 100, temp: float = 0, top_p: float = 1) -> str:
 
         response = self.client.generate(
             model=self.model_name,

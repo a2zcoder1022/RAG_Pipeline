@@ -4,6 +4,7 @@ from .Models.PromptModels import PromptFewShot, PromptOneShot
 from .APISupport.ApiFunctions import create_one_shot_prompt, create_few_shot_prompt
 from .Embedding.generate_embeddings import Embedding
 from contextlib import asynccontextmanager
+import random
 
 @asynccontextmanager
 async def async_lifespan(app: FastAPI):
@@ -43,5 +44,14 @@ def top_k_examples(
     prompt_embedding = embedding_generator.generate_embedding(prompt)
     examples = embedding_generator.top_k_examples(prompt_embedding, k)
     return {"top_k_examples": examples}
+
+@app.post("/random_examples")
+def random_examples(prompt: str, k: int = 1):
+    samples = app.state.embedding_generator.pull_examples_from_json()
+    samples = []
+    for _ in range(k):
+        sample = random.choice(samples)
+        samples.append(sample)
+    return {"random_examples": samples}
 
 

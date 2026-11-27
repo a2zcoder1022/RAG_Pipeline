@@ -14,11 +14,11 @@ Prompt engineering is writing instructions, context, and examples to guide a mod
 - **One-shot:** Give it one input-and-answer example.
 - **Few-shot:** Give it a small number of examples before the task.
 
-Prompt Lab uses the support-ticket categories Billing, IT, and Fraud. The dataset is in `LLM/PromptEngineering/support_ticket_dataset.json`. It keeps the original generic examples under `generic_examples`, while Prompt Lab uses the 30 `quality_examples` for one-shot and few-shot requests. Both sets are separate from the held-out evaluation examples.
+Prompt Lab uses the support-ticket categories Billing, IT, and Fraud. The dataset is in `LLM/PromptEngineering/support_ticket_dataset.json`. It keeps the original generic examples under `generic_examples`, while Prompt Lab uses the 75 `quality_examples` for one-shot and few-shot requests (25 per label). Its 40 held-out evaluation examples are balanced as evenly as possible across the three labels (14 Billing, 13 IT, and 13 Fraud).
 
 ## Back end
 
-The API is in `API/api.py`. It exposes `GET /hello`, `GET /zero_shot_prompt/ollama`, `POST /one_shot_prompt/ollama`, and `POST /few_shot_prompt/ollama`. The zero-shot endpoint accepts a `prompt` query parameter. The one-shot endpoint accepts an instruction, one labeled example, and the new prompt. The few-shot endpoint accepts an instruction, a list of labeled examples, and the new prompt. All generation endpoints accept an optional `model_name` query parameter. Prompt Lab offers Llama 3.2, Qwen3 8B, Gemma3 4B, Mistral 7B, and Phi-4. Random example choices are reused for the same evaluation settings across models. **Run all models** shows progress by model and displays only a final comparison table with accuracy, correct and incorrect totals, correct percentages for Fraud, Billing, and IT, and IDs for incorrectly classified prompts. Individual prompt responses are not displayed.
+The API is in `API/api.py`. It exposes `GET /hello`, `GET /zero_shot_prompt/ollama`, `POST /one_shot_prompt/ollama`, and `POST /few_shot_prompt/ollama`. The zero-shot endpoint accepts a `prompt` query parameter. The one-shot endpoint accepts an instruction, one labeled example, and the new prompt. The few-shot endpoint accepts an instruction, a list of labeled examples, and the new prompt. All generation endpoints accept an optional `model_name` query parameter. Prompt Lab offers Llama 3.2, Qwen3 8B, Gemma3 4B, Mistral 7B, and Phi-4. Random example choices are reused for the same evaluation settings across models. **Run all models** executes the five model runs concurrently, processing prompts sequentially within each model. It shows progress by completed model and displays a final comparison table with overall accuracy, correct and incorrect totals, and IDs for incorrectly classified prompts. Individual prompt responses are not displayed.
 
 `LLM/ollama.py` contains the `OllamaClient` wrapper. It connects to the local Ollama service at `http://localhost:11434`, uses `llama3.2` by default, and returns the generated response. Prompt Lab passes its selected model to each generation endpoint.
 
@@ -53,6 +53,17 @@ uv run uvicorn API.api:app --reload
 ```
 
 Open `http://127.0.0.1:8000/docs` to view and try the API endpoints.
+
+### Run the Python experiment
+
+Start the Ollama app, then run this from the project directory using a Python environment with PyTorch and Transformers installed:
+
+```powershell
+$env:UV_PROJECT_ENVIRONMENT = 'C:\Users\aaron\torch_test'
+uv run --no-sync python -m Experiment.experiment --mode few_shot --selection top_k --k 3
+```
+
+Use `--selection random` to sample examples instead, or `--mode zero_shot` to skip examples and embeddings. The script runs models sequentially and writes summaries and per-prompt responses to `Experiment/experiment_results.json`. Choose a `torch_test` path that exists on your machine.
 
 ## Run the front end
 
